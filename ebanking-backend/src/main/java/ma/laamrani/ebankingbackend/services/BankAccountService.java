@@ -1,5 +1,9 @@
 package ma.laamrani.ebankingbackend.services;
-
+import ma.laamrani.ebankingbackend.dtos.*;
+import ma.laamrani.ebankingbackend.exceptions.BalanceNotSufficientException;
+import ma.laamrani.ebankingbackend.exceptions.BankAccountNotFoundException;
+import ma.laamrani.ebankingbackend.exceptions.CustomerNotFoundException;
+import java.util.List;
 public interface BankAccountService {
     CustomerDTO saveCustomer(CustomerDTO customerDTO);
     CurrentBankAccountDTO saveCurrentBankAccount(double initialBalance, double overDraft, Long customerId) throws CustomerNotFoundException;
