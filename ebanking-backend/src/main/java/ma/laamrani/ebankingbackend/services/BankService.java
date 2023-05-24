@@ -1,13 +1,11 @@
 package ma.laamrani.ebankingbackend.services;
-
-import org.sid.ebankingbackend.entities.BankAccount;
-import org.sid.ebankingbackend.entities.CurrentAccount;
-import org.sid.ebankingbackend.entities.SavingAccount;
-import org.sid.ebankingbackend.repositories.BankAccountRepository;
+import jakarta.transaction.Transactional;
+import ma.laamrani.ebankingbackend.entities.BankAccount;
+import ma.laamrani.ebankingbackend.entities.CurrentAccount;
+import ma.laamrani.ebankingbackend.entities.SavingAccount;
+import ma.laamrani.ebankingbackend.repositories.BankAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 @Service
 @Transactional
 public class BankService {
