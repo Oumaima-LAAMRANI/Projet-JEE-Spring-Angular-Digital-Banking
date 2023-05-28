@@ -1,11 +1,10 @@
 package ma.laamrani.ebankingbackend.entities;
-
-
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ma.laamrani.ebankingbackend.enums.AccountStatus;
+
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 @Entity
@@ -14,13 +13,14 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class BankAccount {
+public class BankAccount {
     @Id
     private String id;
     private double balance;
     private Date createdAt;
     @Enumerated(EnumType.STRING)
     private AccountStatus status;
+    private String currency;
     @ManyToOne
     private Customer customer;
 

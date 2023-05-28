@@ -1,9 +1,11 @@
 package ma.laamrani.ebankingbackend.entities;
-import jakarta.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ma.laamrani.ebankingbackend.enums.OperationType;
+
+import javax.persistence.*;
 import java.util.Date;
 @Entity
 @Data
@@ -15,10 +17,11 @@ public class AccountOperation {
     private Long id;
     private Date operationDate;
     private double amount;
+    private String description;
     @Enumerated(EnumType.STRING)
     private OperationType type;
     @ManyToOne
     private BankAccount bankAccount;
-    private String description;
+
 }
 

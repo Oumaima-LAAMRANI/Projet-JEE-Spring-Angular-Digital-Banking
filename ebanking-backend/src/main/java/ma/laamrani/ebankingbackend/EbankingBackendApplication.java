@@ -12,9 +12,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
-import java.util.stream.Stream;
 
 @SpringBootApplication
 public class EbankingBackendApplication {
@@ -22,17 +23,21 @@ public class EbankingBackendApplication {
     public static void main(String[] args) {
         SpringApplication.run(EbankingBackendApplication.class, args);
     }
-    @Bean
+    //@Bean
     CommandLineRunner start(CustomerRepository customerRepository,
                             BankAccountRepository bankAccountRepository,
                             AccountOperationRepository accountOperationRepository){
         return args -> {
-            Stream.of("Hiba","Aya","Mohamed").forEach(name->{
-                Customer customer=new Customer();
-                customer.setName(name);
-                customer.setEmail(name+"@gmail.com");
+            List<String> firstNames = Arrays.asList("Hiba", "Aya", "Mohamed");
+            List<String> lastNames = Arrays.asList("Benali", "El Amrani", "Choukri");
+
+            for (int i = 0; i < firstNames.size(); i++) {
+                Customer customer = new Customer();
+                customer.setFirstName(firstNames.get(i));
+                customer.setLastName(lastNames.get(i));
+                customer.setEmail(firstNames.get(i) + "@gmail.com");
                 customerRepository.save(customer);
-            });
+            }
             customerRepository.findAll().forEach(cust->{
                 CurrentAccount currentAccount=new CurrentAccount();
                 currentAccount.setId(UUID.randomUUID().toString());

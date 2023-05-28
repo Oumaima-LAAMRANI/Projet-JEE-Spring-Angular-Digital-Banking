@@ -1,9 +1,11 @@
 package ma.laamrani.ebankingbackend.web;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import ma.laamrani.ebankingbackend.dtos.BankAccountDTO;
 import ma.laamrani.ebankingbackend.dtos.CustomerDTO;
 import ma.laamrani.ebankingbackend.services.BankAccountService;
 import ma.laamrani.ebankingbackend.exceptions.CustomerNotFoundException;
+import ma.laamrani.ebankingbackend.services.CostumerService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @RestController
@@ -12,29 +14,38 @@ import java.util.List;
 @CrossOrigin("*")
 public class CustomerRestController {
     private BankAccountService bankAccountService;
+    private CostumerService costumerService;
     @GetMapping("/customers")
-    public List<CustomerDTO> customers(){
-        return bankAccountService.listCustomers();
+    public List<CustomerDTO> customers() {
+        return costumerService.listCustomers();
     }
+
     @GetMapping("/customers/search")
-    public List<CustomerDTO> searchCustomers(@RequestParam(name = "keyword",defaultValue = "") String keyword){
-        return bankAccountService.searchCustomers("%"+keyword+"%");
+    public List<CustomerDTO> searchCustomers(
+            @RequestParam(name = "keyword", defaultValue = "") String keyword) {
+        return costumerService.searchCustomers("" + keyword);
     }
     @GetMapping("/customers/{id}")
-    public CustomerDTO getCustomer(@PathVariable(name = "id") Long customerId) throws CustomerNotFoundException {
-        return bankAccountService.getCustomer(customerId);
+    public CustomerDTO getcustomer(@PathVariable(name = "id") Long costumerid) throws CustomerNotFoundException {
+        return costumerService.getCustomer(costumerid);
     }
     @PostMapping("/customers")
-    public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO){
-        return bankAccountService.saveCustomer(customerDTO);
-    }
-    @PutMapping("/customers/{customerId}")
-    public CustomerDTO updateCustomer(@PathVariable Long customerId, @RequestBody CustomerDTO customerDTO){
-        customerDTO.setId(customerId);
-        return bankAccountService.updateCustomer(customerDTO);
+    public CustomerDTO addcustomer(@RequestBody CustomerDTO customerDTO) {
+        return costumerService.saveCustomer(customerDTO);
     }
     @DeleteMapping("/customers/{id}")
-    public void deleteCustomer(@PathVariable Long id){
-        bankAccountService.deleteCustomer(id);
+    public void deletecustomer(@PathVariable Long id) throws CustomerNotFoundException {
+        costumerService.deleteCustomer(id);
     }
+    @PutMapping("/customers/{id}")
+    public void deletecustomer(@PathVariable Long id, @RequestBody CustomerDTO customerDTO) throws CustomerNotFoundException {
+        customerDTO.setId(id);
+        costumerService.updateCustomer(customerDTO);
+
+    }
+    @GetMapping("/customer/{id}/accounts")
+    public List<BankAccountDTO> banksOfCustomer(@PathVariable(name = "id") Long customerid) {
+        return bankAccountService.listBankAccountsOfCustomer(customerid);
+    }
+
 }
